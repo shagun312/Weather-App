@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Charis+SIL&family=Fascinate&family=Joan&family=M+PLUS+Rounded+1c&family=Merriweather:wght@300&family=Poppins:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa fa-map-marker"></i></h2>
+            <h2 id="location"></h2>
+            <h6 id="weather"></h6>
+            <h4><span id="temp"></span><sup>o</sup>C</h4>
+            <img src="" alt="" id="icon">
+            <button id="refresh" onclick="window.location.reload()"><i class="fa fa-refresh"></i></button>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script>
+    link = "https://api.openweathermap.org/data/2.5/weather?q=chandigarh&appid=81a654a5935a6cadd1319cfdeff731f2"
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function(){
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        document.getElementById('weather').innerHTML = obj.weather[0].description;
+        document.getElementById('location').innerHTML = obj.name;
+        document.getElementById('temp').innerHTML = Math.round(obj.main.temp - 273.15);
+        document.getElementById('icon').src = "https://openweathermap.org/img/w/" + obj.weather[0].icon +".png";
+    }
+    if(request.status>=200 && request.status<400)
+    {
+        var temp = obj.main.temp;
+    }
+    else{
+        console.log("The city data is not available");
+    }
+    request.send();
+</script>
+</html>
